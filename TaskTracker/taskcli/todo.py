@@ -59,17 +59,83 @@ class Todo:
         data = read_json_file()
         tasks = data["tasks"]
 
-        print(f"")
-        
+        if not tasks:
+            print("No tasks found.")
+            return
+
+        # Print table header
+        print(f"\n{'ID':<5} {'Title':<50} {'Status':<15}")
+        print("-" * 70)
+
+        # Print each task as a row
+        for task in tasks:
+            task_id = task["id"]
+            title = task["title"]
+            status = task["status"]
+            print(f"{task_id:<5} {title:<50} {status:<15}")
 
     # 4. List all tasks that are done
     def list_done_tasks(self):
-        pass
+        data = read_json_file()
+        tasks = data["tasks"]
+
+        if not tasks:
+            print("No tasks found with status--Done.")
+            return
+
+        # Print table header
+        print("Tasks with Done status")
+        print(f"\n{'ID':<5} {'Title':<50} {'Status':<15}")
+        print("-" * 70)
+
+        # Print each task as a row
+        for task in tasks:
+            if task["status"] == "done":
+                task_id = task["id"]
+                title = task["title"]
+                status = task["status"]
+                print(f"{task_id:<5} {title:<50} {status:<15}")
 
     # 5. List all tasks that are not done
-    def list_not_done_tasks(self):
-        pass
+    def list_todo_tasks(self):
+        data = read_json_file()
+        tasks = data["tasks"]
+
+        if not tasks:
+            print("No tasks found with status--ToDo.")
+            return
+
+        # Print table header
+        print("Tasks with ToDo status")
+        print(f"\n{'ID':<5} {'Title':<50} {'Status':<15}")
+        print("-" * 70)
+
+        # Print each task as a row
+        for task in tasks:
+            if task["status"] == "todo":
+                task_id = task["id"]
+                title = task["title"]
+                status = task["status"]
+                print(f"{task_id:<5} {title:<50} {status:<15}")
 
     # 6. List all tasks that are in progress
     def list_in_progress_tasks(self):
-        pass
+        data = read_json_file()
+        tasks = data["tasks"]
+
+        if not tasks:
+            print("No tasks found with status--InProgress.")
+            return
+
+        # Print table header
+        print("Tasks with InProgress status")
+        print(f"\n{'ID':<5} {'Title':<50} {'Status':<15}")
+        print("-" * 70)
+
+        # Print each task as a row
+        for task in tasks:
+            if task["status"] == "in_progress":
+                task_id = task["id"]
+                title = task["title"]
+                status = task["status"]
+                print(f"{task_id:<5} {title:<50} {status:<15}")
