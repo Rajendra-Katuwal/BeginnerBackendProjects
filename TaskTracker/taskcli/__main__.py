@@ -8,7 +8,7 @@ def setup_parser() -> argparse.ArgumentParser:
     # Parser setup and configuration for our cli
     parser = argparse.ArgumentParser(
         description="A CLI Todo management tool",
-        epilog='Example task-cli add "Buy Groceries"',
+        epilog='Example taskcli add "Buy Groceries"',
     )
     subparsers = parser.add_subparsers(title="Operators", dest="operator")
 
@@ -38,7 +38,7 @@ def setup_parser() -> argparse.ArgumentParser:
 
     list_parser = subparsers.add_parser("list", help="List all the existing tasks")
     list_parser.add_argument(
-        "status", type=str, default=None, help="status to filter the task by"
+        "status", type=str, nargs="?", default=None, help="status to filter the task by"
     )
 
     return parser
@@ -67,7 +67,7 @@ def command_to_method_mapping(parser: argparse.ArgumentParser, todo: Todo):
             else print(f"Task Deletion unsucessful")
         )
 
-    if args.opertator == "mark-in-progress":
+    if args.operator == "mark-in-progress":
         marked = todo.mark_task(id=args.id, status="in_progress")
         (
             print(f"Task Marked as in-progress successfully")
@@ -75,7 +75,7 @@ def command_to_method_mapping(parser: argparse.ArgumentParser, todo: Todo):
             else print(f"Task Mark as in-progress unsucessful")
         )
 
-    if args.opertator == "mark-done":
+    if args.operator == "mark-done":
         marked = todo.mark_task(id=args.id, status="done")
         (
             print(f"Task Marked as done successfully")
@@ -95,7 +95,7 @@ def command_to_method_mapping(parser: argparse.ArgumentParser, todo: Todo):
 
 
 def main():
-    # Ensure that the file is ccreated initiall
+    # Ensure that the file is created initially
     init_json_file()
 
     # Setup cli parser and command and subcommands along with the arguments required
