@@ -34,7 +34,7 @@ class Todo:
     def delete_todo(self, id: int, title: str):
         data = read_json_file()
         tasks = data["tasks"]
-        for i, task in tasks:
+        for task in tasks:
             if task["id"] == id:
                 tasks.remove(task)
                 data["tasks"] = tasks
@@ -46,9 +46,9 @@ class Todo:
     def mark_task(self, id: int, status: Status):
         data = read_json_file()
         tasks = data["tasks"]
-        for i, task in tasks:
+        for task in tasks:
             if task["id"] == id:
-                tasks["status"] = status
+                task["status"] = status
                 data["tasks"] = tasks
                 write_json_file(data=data)
                 return True
