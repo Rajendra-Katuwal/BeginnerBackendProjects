@@ -4,10 +4,7 @@ from taskcli.json_utils import Status, init_json_file
 import json
 
 
-def main():
-    # Ensure that the file is ccreated initiall
-    init_json_file()
-
+def setup_parser() -> argparse.ArgumentParser:
     # Parser setup and configuration for our cli
     parser = argparse.ArgumentParser(
         description="A CLI Todo management tool",
@@ -40,19 +37,75 @@ def main():
     )
 
     list_parser = subparsers.add_parser("list", help="List all the existing tasks")
-    list_parser.add_argument("status", type=Status, help="status to filter the task by")
+    list_parser.add_argument(
+        "status", type=str, default=None, help="status to filter the task by"
+    )
 
-    # Using the parser and using the functions to perform the actions
+    return parser
+
+
+def command_to_method_mapping(parser: argparse.ArgumentParser, todo: Todo):
     args = parser.parse_args()
-    todo = Todo()
 
     if args.operator == "add":
         new_task = todo.add_todo(args.title)
         print(f"New Task = {json.dumps(new_task, indent=2)}")
 
-    if args.operator =="update":
+    if args.operator == "update":
         updated_task = todo.update_todo(id=args.id, title=args.title)
-        print(f"Task updated successfully") if updated_task else print(f"Update unsucessful")
+        (
+            print(f"Task updated successfully")
+            if updated_task
+            else print(f"Update unsucessful")
+        )
+
+    if args.operator == "delete":
+        deleted_task = todo.delete_todo(id=args.id)
+        (
+            print(f"Task Deleted successfully")
+            if deleted_task
+            else print(f"Task Deletion unsucessful")
+        )
+
+    if args.opertator == "mark-in-progress":
+        marked = todo.mark_task(id=args.id, status="in_progress")
+        (
+            print(f"Task Marked as in-progress successfully")
+            if marked
+            else print(f"Task Mark as in-progress unsucessful")
+        )
+
+    if args.opertator == "mark-done":
+        marked = todo.mark_task(id=args.id, status="done")
+        (
+            print(f"Task Marked as done successfully")
+            if marked
+            else print(f"Task Mark as done unsucessful")
+        )
+
+    if args.operator == "list":
+        if args.status == None:
+            todo.list_all()
+        if args.status == "todo":
+            todo.list_todo_tasks()
+        if args.status == "in_progress":
+            todo.list_in_progress_tasks()
+        if args.status == "done":
+            todo.list_done_tasks()
+
+
+def main():
+    # Ensure that the file is ccreated initiall
+    init_json_file()
+
+    # Setup cli parser and command and subcommands along with the arguments required
+    parser = setup_parser()
+
+    # Todo instance to access all the required method
+    todo = Todo()
+
+    # Using the parser and using the functions to perform the actions
+    command_to_method_mapping(parser=parser, todo=todo)
 
 
 if __name__ == "__main__":
