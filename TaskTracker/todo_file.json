@@ -1,0 +1,39 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Test Task 1",
+      "status": "todo"
+    },
+    {
+      "id": 2,
+      "title": "Test Task 2",
+      "status": "todo"
+    },
+    {
+      "id": 3,
+      "title": "Test Task 3",
+      "status": "todo"
+    },
+    {
+      "id": 4,
+      "title": "Hello this is a new task",
+      "status": "todo"
+    },
+    {
+      "id": 5,
+      "title": "Complete this project in the morining block and also +2 other projects of beginner level from roadmap.sh",
+      "status": "todo"
+    },
+    {
+      "id": 6,
+      "title": "Hello this is a new task 6",
+      "status": "todo"
+    },
+    {
+      "id": 7,
+      "title": "Hello this is a new task 7",
+      "status": "todo"
+    }
+  ]
+}
